@@ -11,6 +11,7 @@ const Header = () => {
   const { user, logout } = useAuth()
   const navigate = useNavigate()
   const [isLoggingOut, setIsLoggingOut] = useState(false)
+  const [expanded, setExpanded] = useState(false)
 
   const handleLogout = async () => {
     setIsLoggingOut(true)
@@ -28,7 +29,13 @@ const Header = () => {
       </div>
       
       {/* Main Navbar */}
-      <Navbar expand="lg" className="navbar-custom py-3" sticky="top">
+      <Navbar
+        expand="lg"
+        className="navbar-custom py-3"
+        sticky="top"
+        expanded={expanded}
+        onToggle={setExpanded}
+      >
         <Container>
           {/* Logo */}
           <Navbar.Brand as={Link} to="/home" className="brand-logo">
@@ -36,9 +43,9 @@ const Header = () => {
             <span className="brand-text">Pure Wear</span>
           </Navbar.Brand>
 
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={() => setExpanded(!expanded)} />
           
-          <Navbar.Collapse id="basic-navbar-nav">
+          <Navbar.Collapse id="basic-navbar-nav" onClick={() => setExpanded(false)}>
             {/* Center Navigation */}
             <Nav className="navbar-nav-center">
               <Nav.Link as={Link} to="/home" className="nav-item-custom">
