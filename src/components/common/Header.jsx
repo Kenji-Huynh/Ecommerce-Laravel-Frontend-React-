@@ -11,7 +11,6 @@ const Header = () => {
   const { user, logout } = useAuth()
   const navigate = useNavigate()
   const [isLoggingOut, setIsLoggingOut] = useState(false)
-  const [expanded, setExpanded] = useState(false)
 
   const handleLogout = async () => {
     setIsLoggingOut(true)
@@ -21,8 +20,6 @@ const Header = () => {
     setIsLoggingOut(false)
   }
 
-  const closeMenu = () => setExpanded(false)
-
   return (
     <>
       {/* Top Bar */}
@@ -31,40 +28,34 @@ const Header = () => {
       </div>
       
       {/* Main Navbar */}
-      <Navbar
-        expand="lg"
-        className="navbar-custom py-3"
-        sticky="top"
-        expanded={expanded}
-        onToggle={(e) => setExpanded(e)}
-      >
+      <Navbar expand="lg" className="navbar-custom py-3" sticky="top">
         <Container>
           {/* Logo */}
-          <Navbar.Brand as={Link} to="/home" className="brand-logo" onClick={closeMenu}>
+          <Navbar.Brand as={Link} to="/home" className="brand-logo">
             <span className="logo-icon"><i className="fas fa-tshirt"></i></span>
             <span className="brand-text">Pure Wear</span>
           </Navbar.Brand>
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-
+          
           <Navbar.Collapse id="basic-navbar-nav">
             {/* Center Navigation */}
             <Nav className="navbar-nav-center">
-              <Nav.Link as={Link} to="/home" className="nav-item-custom" onClick={closeMenu}>
+              <Nav.Link as={Link} to="/home" className="nav-item-custom">
                 Home
               </Nav.Link>
-              <Nav.Link as={Link} to="/shop?category=kids" className="nav-item-custom" onClick={closeMenu}>
+              <Nav.Link as={Link} to="/shop?category=kids" className="nav-item-custom">
                 Kids
               </Nav.Link>
-              <Nav.Link as={Link} to="/shop?category=men" className="nav-item-custom" onClick={closeMenu}>
+              <Nav.Link as={Link} to="/shop?category=men" className="nav-item-custom">
                 Mens
               </Nav.Link>
-              <Nav.Link as={Link} to="/shop?category=women" className="nav-item-custom" onClick={closeMenu}>
+              <Nav.Link as={Link} to="/shop?category=women" className="nav-item-custom">
                 Women
               </Nav.Link>
             </Nav>
             
-            {/* Right Side */}
+            {/* Right side icons */}
             <Nav className="navbar-nav-right">
               {user ? (
                 <Dropdown align="end">
@@ -74,18 +65,15 @@ const Header = () => {
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
-                    <Dropdown.Item as={Link} to="/account" onClick={closeMenu}>
+                    <Dropdown.Item as={Link} to="/account">
                       <i className="fas fa-user-circle me-2"></i>
                       Tài khoản
                     </Dropdown.Item>
-
-                    <Dropdown.Item as={Link} to="/account/orders" onClick={closeMenu}>
+                    <Dropdown.Item as={Link} to="/account/orders">
                       <i className="fas fa-box me-2"></i>
                       Đơn hàng
                     </Dropdown.Item>
-
                     <Dropdown.Divider />
-
                     <Dropdown.Item onClick={handleLogout} disabled={isLoggingOut}>
                       <i className="fas fa-sign-out-alt me-2"></i>
                       {isLoggingOut ? 'Đang đăng xuất...' : 'Đăng xuất'}
@@ -94,26 +82,23 @@ const Header = () => {
                 </Dropdown>
               ) : (
                 <>
-                  <Link to="/login" className="nav-icon" title="Đăng nhập" onClick={closeMenu}>
+                  <Link to="/login" className="nav-icon" title="Đăng nhập">
                     <i className="fas fa-sign-in-alt"></i>
                     <span className="ms-2 d-none d-lg-inline">Đăng nhập</span>
                   </Link>
-
-                  <Link to="/register" className="nav-icon" title="Đăng ký" onClick={closeMenu}>
+                  <Link to="/register" className="nav-icon" title="Đăng ký">
                     <i className="fas fa-user-plus"></i>
                     <span className="ms-2 d-none d-lg-inline">Đăng ký</span>
                   </Link>
                 </>
               )}
-
+              
               <a
                 href="#"
                 className="nav-icon position-relative"
                 onClick={async (e) => {
                   e.preventDefault()
-                  
                   if (user) {
-                    closeMenu()
                     navigate('/cart')
                   } else {
                     const result = await showLoginRequired()
@@ -124,7 +109,9 @@ const Header = () => {
                 aria-label="Giỏ hàng"
               >
                 <i className="fas fa-shopping-bag"></i>
-                {itemCount > 0 && <span className="cart-badge">{itemCount}</span>}
+                {itemCount > 0 && (
+                  <span className="cart-badge">{itemCount}</span>
+                )}
               </a>
             </Nav>
           </Navbar.Collapse>
@@ -135,3 +122,4 @@ const Header = () => {
 }
 
 export default Header
+
