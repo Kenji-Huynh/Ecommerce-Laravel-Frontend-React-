@@ -68,7 +68,7 @@ const Home = () => {
               <div className="hero-image-container">
                 <div className="hero-image">
                   <img 
-                    src="/src/assets/images/banner-hero.jpg" 
+                    src="src/assets/images/banner-hero.jpg" 
                     alt="Fashion Collection"
                     className="banner-img"
                     onError={(e) => {
@@ -109,7 +109,7 @@ const Home = () => {
                 <div className="category-card">
                   <div className="category-image">
                     <img 
-                      src="/src/assets/images/male.jpg" 
+                      src="src/assets/images/male.jpg" 
                       alt="Men's Fashion"
                       className="category-img"
                       onError={(e) => {
@@ -137,7 +137,7 @@ const Home = () => {
                 <div className="category-card">
                   <div className="category-image">
                     <img 
-                      src="/src/assets/images/female.jpg" 
+                      src="src/assets/images/female.jpg" 
                       alt="Women's Fashion"
                       className="category-img"
                       onError={(e) => {
@@ -165,7 +165,7 @@ const Home = () => {
                 <div className="category-card">
                   <div className="category-image">
                     <img 
-                      src="/src/assets/images/kids.jpg" 
+                      src="src/assets/images/kids.jpg" 
                       alt="Kids Fashion"
                       className="category-img"
                       onError={(e) => {
