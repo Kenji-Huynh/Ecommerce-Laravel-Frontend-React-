@@ -1,3 +1,29 @@
+/* Responsive fix for quantity input in ProductDetail */
+@media (max-width: 576px) {
+  .product-info .input-group {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    width: 100% !important;
+    min-width: 0;
+    gap: 6px;
+  }
+  .product-info .input-group .btn {
+    width: 100%;
+    min-width: 0;
+    height: 40px;
+    font-size: 1.1rem;
+    padding: 0;
+  }
+  .product-info .input-group input[type="number"] {
+    width: 100%;
+    min-width: 0;
+    text-align: center;
+    font-size: 1.1rem;
+    padding: 8px 0;
+    margin: 0;
+    border-width: 2px;
+  }
+}
 /* Cart Page Styling */
 .cart-section {
   background: #f8f9fa;
@@ -12,6 +38,7 @@
   background-color: #f8f9fa;
 }
 
+
 .quantity-control input[type="number"]::-webkit-inner-spin-button,
 .quantity-control input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -20,6 +47,54 @@
 
 .quantity-control input[type="number"] {
   -moz-appearance: textfield;
+}
+
+/* Responsive fix for quantity control in cart */
+@media (max-width: 576px) {
+  .quantity-control {
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center;
+    gap: 6px;
+    min-width: 0;
+    width: 100%;
+  }
+  .quantity-control .btn {
+    width: 36px;
+    min-width: 0;
+    height: 36px;
+    font-size: 1.1rem;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .quantity-control input[type="number"] {
+    width: 48px;
+    min-width: 0;
+    text-align: center;
+    font-size: 1.1rem;
+    padding: 6px 0;
+    margin: 0 2px;
+    border-width: 2px;
+    display: inline-block;
+  }
+  /* Coupon input fix */
+  .cart-section .card .input-group {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 8px;
+  }
+  .cart-section .card .input-group input,
+  .cart-section .card .input-group .btn {
+    width: 100%;
+    min-width: 0;
+    border-radius: 8px !important;
+    margin: 0;
+  }
+  .cart-section .card .input-group .btn {
+    margin-top: 2px;
+  }
 }
 
 .payment-icons i {
