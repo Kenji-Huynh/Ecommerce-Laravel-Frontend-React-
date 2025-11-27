@@ -11,6 +11,7 @@ const Header = () => {
   const { user, logout } = useAuth()
   const navigate = useNavigate()
   const [isLoggingOut, setIsLoggingOut] = useState(false)
+  const [expanded, setExpanded] = useState(false)
 
   const handleLogout = async () => {
     setIsLoggingOut(true)
@@ -28,10 +29,10 @@ const Header = () => {
       </div>
       
       {/* Main Navbar */}
-      <Navbar expand="lg" className="navbar-custom py-3" sticky="top">
+      <Navbar expand="lg" className="navbar-custom py-3" sticky="top" expanded={expanded} onToggle={setExpanded}>
         <Container>
           {/* Logo */}
-          <Navbar.Brand as={Link} to="/home" className="brand-logo">
+          <Navbar.Brand as={Link} to="/home" className="brand-logo" onClick={() => setExpanded(false)}>
             <span className="logo-icon"><i className="fas fa-tshirt"></i></span>
             <span className="brand-text">Pure Wear</span>
           </Navbar.Brand>
@@ -41,16 +42,16 @@ const Header = () => {
           <Navbar.Collapse id="basic-navbar-nav">
             {/* Center Navigation */}
             <Nav className="navbar-nav-center">
-              <Nav.Link as={Link} to="/home" className="nav-item-custom">
+              <Nav.Link as={Link} to="/home" className="nav-item-custom" onClick={() => setExpanded(false)}>
                 Home
               </Nav.Link>
-              <Nav.Link as={Link} to="/shop?category=kids" className="nav-item-custom">
+              <Nav.Link as={Link} to="/shop?category=kids" className="nav-item-custom" onClick={() => setExpanded(false)}>
                 Kids
               </Nav.Link>
-              <Nav.Link as={Link} to="/shop?category=men" className="nav-item-custom">
+              <Nav.Link as={Link} to="/shop?category=men" className="nav-item-custom" onClick={() => setExpanded(false)}>
                 Mens
               </Nav.Link>
-              <Nav.Link as={Link} to="/shop?category=women" className="nav-item-custom">
+              <Nav.Link as={Link} to="/shop?category=women" className="nav-item-custom" onClick={() => setExpanded(false)}>
                 Women
               </Nav.Link>
             </Nav>
@@ -58,23 +59,35 @@ const Header = () => {
             {/* Right side icons */}
             <Nav className="navbar-nav-right">
               {user ? (
-                <Dropdown align="end">
-                  <Dropdown.Toggle as="a" className="nav-icon" style={{ cursor: 'pointer' }}>
+                <Dropdown align="end" onSelect={() => setExpanded(false)}>
+                  <Dropdown.Toggle
+                    as="a"
+                    className="nav-icon"
+                    style={{ cursor: 'pointer' }}
+                    onClick={(e) => {
+                      // Trên màn hình nhỏ (<992px) đi thẳng vào trang account
+                      if (window.innerWidth < 992) {
+                        e.preventDefault()
+                        setExpanded(false)
+                        navigate('/account')
+                      }
+                    }}
+                  >
                     <i className="fas fa-user"></i>
                     <span className="ms-2 d-none d-lg-inline">{user.name}</span>
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
-                    <Dropdown.Item as={Link} to="/account">
+                    <Dropdown.Item as={Link} to="/account" onClick={() => setExpanded(false)}>
                       <i className="fas fa-user-circle me-2"></i>
                       Tài khoản
                     </Dropdown.Item>
-                    <Dropdown.Item as={Link} to="/account/orders">
+                    <Dropdown.Item as={Link} to="/account/orders" onClick={() => setExpanded(false)}>
                       <i className="fas fa-box me-2"></i>
                       Đơn hàng
                     </Dropdown.Item>
                     <Dropdown.Divider />
-                    <Dropdown.Item onClick={handleLogout} disabled={isLoggingOut}>
+                    <Dropdown.Item onClick={() => { handleLogout(); setExpanded(false); }} disabled={isLoggingOut}>
                       <i className="fas fa-sign-out-alt me-2"></i>
                       {isLoggingOut ? 'Đang đăng xuất...' : 'Đăng xuất'}
                     </Dropdown.Item>
@@ -82,11 +95,11 @@ const Header = () => {
                 </Dropdown>
               ) : (
                 <>
-                  <Link to="/login" className="nav-icon" title="Đăng nhập">
+                  <Link to="/login" className="nav-icon" title="Đăng nhập" onClick={() => setExpanded(false)}>
                     <i className="fas fa-sign-in-alt"></i>
                     <span className="ms-2 d-none d-lg-inline">Đăng nhập</span>
                   </Link>
-                  <Link to="/register" className="nav-icon" title="Đăng ký">
+                  <Link to="/register" className="nav-icon" title="Đăng ký" onClick={() => setExpanded(false)}>
                     <i className="fas fa-user-plus"></i>
                     <span className="ms-2 d-none d-lg-inline">Đăng ký</span>
                   </Link>
@@ -98,6 +111,7 @@ const Header = () => {
                 className="nav-icon position-relative"
                 onClick={async (e) => {
                   e.preventDefault()
+                  setExpanded(false)
                   if (user) {
                     navigate('/cart')
                   } else {
